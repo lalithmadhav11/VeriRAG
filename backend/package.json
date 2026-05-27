@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "lint": "echo \"Add ESLint config if needed\""
+    "lint": "echo \"Add ESLint config if needed\"",
+    "test": "node --test"
   },
   "dependencies": {
     "@langchain/community": "^0.3.37",
