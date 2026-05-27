@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
+    "start:prod": "NODE_ENV=production node src/server.js",
     "lint": "echo \"Add ESLint config if needed\"",
     "test": "node --test"
   },
@@ -18,9 +19,13 @@
     "@slack/bolt": "^4.7.2",
     "bullmq": "^5.32.1",
     "chromadb": "^1.10.0",
+    "compression": "^1.8.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "envalid": "^8.1.1",
     "express": "^4.19.2",
+    "express-rate-limit": "^8.5.2",
+    "helmet": "^8.2.0",
     "ioredis": "^5.4.2",
     "mongoose": "^8.6.1",
     "multer": "^1.4.5-lts.1",
