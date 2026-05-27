@@ -1,34 +1,9 @@
 const { randomUUID } = require("crypto");
 const QueryHistory = require("../models/QueryHistory");
 const { enqueueQueryJob } = require("../queue/producer");
-const env = require("../config/env");
+const { formatConfidence, formatCitations } = require("./formatters");
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-const clamp01 = (v) => Math.max(0, Math.min(1, v));
-
-const formatConfidence = ({ hallucinationScore, flagged, usedWebFallback }) => {
-  const score = typeof hallucinationScore === "number" ? hallucinationScore : 0;
-  const safePct = clamp01(score) * 100;
-
-  // Interpret higher score as higher retrieval-grounded confidence.
-  const flaggedText = flagged ? "*YES*" : "*NO*";
-  const webText = usedWebFallback ? " (web fallback used)" : "";
-
-  return `*Grounding confidence:* ${safePct.toFixed(1)}%${webText}\n*Hallucination flagged:* ${flaggedText}`;
-};
-
-const formatCitations = (finalSources) => {
-  if (!Array.isArray(finalSources) || finalSources.length === 0) {
-    return "_No citations available._";
-  }
-
-  const shown = finalSources.slice(0, 8);
-  const lines = shown.map((src, idx) => `${idx + 1}. ${src}`);
-  const more = finalSources.length > shown.length ? `\n_+${finalSources.length - shown.length} more_` : "";
-
-  return `*Sources:*\n${lines.join("\n")}${more}`;
-};
 
 const extractQueryFromMentionText = (text) => {
   if (!text || typeof text !== "string") return "";
