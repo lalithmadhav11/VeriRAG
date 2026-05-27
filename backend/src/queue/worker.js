@@ -4,6 +4,7 @@ const { QUEUE_NAME } = require("./producer");
 const { runAgent } = require("../agent/graph");
 const QueryHistory = require("../models/QueryHistory");
 const env = require("../config/env");
+const { logger } = require("../utils/logger");
 
 // How many jobs to run in parallel per worker process.
 const WORKER_CONCURRENCY = Number(process.env.WORKER_CONCURRENCY || 3);
@@ -53,24 +54,31 @@ const createWorker = () => {
   });
 
   worker.on("active", (job) => {
-    console.log(`[WORKER] Job ${job.id} started (attempt ${job.attemptsMade + 1}/${env.jobMaxAttempts})`);
+    logger.info("Worker job started", {
+      jobId: job.id,
+      attempt: job.attemptsMade + 1,
+      maxAttempts: env.jobMaxAttempts
+    });
   });
 
   worker.on("completed", (job) => {
-    console.log(`[WORKER] Job ${job.id} completed`);
+    logger.info("Worker job completed", { jobId: job.id });
   });
 
   worker.on("failed", async (job, error) => {
     // job is undefined when the job itself couldn't be deserialized.
     if (!job) {
-      console.error("[WORKER] Unknown job failed:", error.message);
+      logger.error("Worker unknown job failed", { error: error.message });
       return;
     }
 
     const isFinalAttempt = job.attemptsMade >= env.jobMaxAttempts;
-    console.error(
-      `[WORKER] Job ${job.id} failed (attempt ${job.attemptsMade}/${env.jobMaxAttempts}): ${error.message}`
-    );
+    logger.error("Worker job failed", {
+      jobId: job.id,
+      attempt: job.attemptsMade,
+      maxAttempts: env.jobMaxAttempts,
+      error: error.message
+    });
 
     // Only write the failed terminal state after all retries are exhausted.
     if (isFinalAttempt) {
@@ -86,7 +94,7 @@ const createWorker = () => {
   });
 
   worker.on("error", (error) => {
-    console.error("[WORKER_ERROR]", error.message);
+    logger.error("Worker runtime error", { error: error.message });
   });
 
   return worker;

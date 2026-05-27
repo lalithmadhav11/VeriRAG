@@ -7,10 +7,13 @@ const { createWorker } = require("./queue/worker");
 const apiRouter = require("./api");
 const { App, ExpressReceiver } = require("@slack/bolt");
 const { registerSlackEvents } = require("./slack/events");
+const { requestContext } = require("./middleware/requestContext.middleware");
+const { logger } = require("./utils/logger");
 
 const app = express();
 
 app.use(cors());
+app.use(requestContext);
 
 // Important: mount Slack receiver BEFORE express.json(), otherwise Slack signature
 // verification may fail due to the request body being pre-parsed.
@@ -30,9 +33,9 @@ if (env.slackBotToken && env.slackSigningSecret) {
   // Mount Slack Bolt receiver into our Express server.
   app.use(slackApp.receiver.router);
 
-  console.log("[SLACK] Bolt receiver mounted on /slack/events");
+  logger.info("Slack receiver mounted", { endpoint: "/slack/events" });
 } else {
-  console.log("[SLACK] Disabled (set SLACK_BOT_TOKEN + SLACK_SIGNING_SECRET).");
+  logger.info("Slack integration disabled");
 }
 
 app.use(express.json({ limit: "5mb" }));
@@ -41,7 +44,7 @@ app.use("/api", apiRouter);
 
 // Centralized error handler — keeps route handlers clean.
 app.use((error, _req, res, _next) => {
-  console.error("[API_ERROR]", error);
+  logger.error("Unhandled API error", { error: error.message });
   return res.status(500).json({
     error: error.message || "Internal server error"
   });
@@ -58,12 +61,12 @@ const startServer = async () => {
     const worker = createWorker();
 
     const server = app.listen(env.port, () => {
-      console.log(`Backend running on http://localhost:${env.port}`);
+      logger.info("Backend started", { port: env.port });
     });
 
     // Graceful shutdown: drain in-flight jobs before exiting.
     const shutdown = async (signal) => {
-      console.log(`[SHUTDOWN] ${signal} received — closing gracefully`);
+      logger.info("Shutdown signal received", { signal });
       server.close(async () => {
         await worker.close();
         process.exit(0);
@@ -75,7 +78,7 @@ const startServer = async () => {
     process.on("SIGTERM", () => shutdown("SIGTERM"));
     process.on("SIGINT", () => shutdown("SIGINT"));
   } catch (error) {
-    console.error("[STARTUP_ERROR]", error);
+    logger.error("Startup error", { error: error.message });
     process.exit(1);
   }
 };
