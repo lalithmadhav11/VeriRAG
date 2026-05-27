@@ -94,6 +94,16 @@ const onAppMention = async ({ event, client }) => {
         return;
       }
 
+      if (record.status !== "completed") {
+        await postThreadMessage({
+          client,
+          channel,
+          threadTs,
+          text: `Still processing your request.\n\`jobId: ${jobId}\`\nUse the status endpoint to continue polling.`
+        });
+        return;
+      }
+
       const answer = record.answer || "_No answer returned._";
       const confidence = formatConfidence({
         hallucinationScore: record.hallucinationScore,
