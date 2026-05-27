@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: verirag-api
+    env: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm run start:prod
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 8080
+      - key: MONGODB_URI
+        sync: false
+      - key: CHROMA_URL
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: REDIS_HOST
+        sync: false
+      - key: REDIS_PORT
+        sync: false
+      - key: REDIS_PASSWORD
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
