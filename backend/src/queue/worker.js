@@ -19,8 +19,13 @@ const processQueryJob = async (job) => {
     { new: true }
   );
 
+  const startTime = process.hrtime.bigint();
+
   // Run the full LangGraph agent pipeline.
   const result = await runAgent(query);
+
+  const endTime = process.hrtime.bigint();
+  const durationMs = Number(endTime - startTime) / 1_000_000;
 
   // Persist the completed result to Mongo for polling.
   await QueryHistory.findOneAndUpdate(
@@ -43,7 +48,8 @@ const processQueryJob = async (job) => {
     answer: result.answer,
     hallucinationScore: result.hallucinationScore,
     flagged: result.flagged,
-    usedWebFallback: result.usedWebFallback
+    usedWebFallback: result.usedWebFallback,
+    durationMs
   };
 };
 
@@ -61,8 +67,12 @@ const createWorker = () => {
     });
   });
 
-  worker.on("completed", (job) => {
-    logger.info("Worker job completed", { jobId: job.id });
+  worker.on("completed", (job, result) => {
+    logger.info("Worker job completed", { 
+      jobId: job.id, 
+      durationMs: result.durationMs,
+      flagged: result.flagged
+    });
   });
 
   worker.on("failed", async (job, error) => {
@@ -95,6 +105,10 @@ const createWorker = () => {
 
   worker.on("error", (error) => {
     logger.error("Worker runtime error", { error: error.message });
+  });
+
+  worker.on("stalled", (jobId) => {
+    logger.warn("Worker job stalled (will be retried)", { jobId });
   });
 
   return worker;
