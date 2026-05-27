@@ -1,24 +1,23 @@
-const format = (level, message, meta) => {
-  const payload = {
-    ts: new Date().toISOString(),
-    level,
-    message,
-    ...meta
-  };
-  return JSON.stringify(payload);
-};
+const winston = require("winston");
+const { format } = winston;
 
-const logger = {
-  info(message, meta = {}) {
-    console.log(format("info", message, meta));
-  },
-  warn(message, meta = {}) {
-    console.warn(format("warn", message, meta));
-  },
-  error(message, meta = {}) {
-    console.error(format("error", message, meta));
-  }
-};
+const logger = winston.createLogger({
+  level: process.env.LOG_LEVEL || "info",
+  format: format.combine(
+    format.timestamp(),
+    format.errors({ stack: true }),
+    format.json()
+  ),
+  defaultMeta: { service: "rag-hallucination-firewall" },
+  transports: [
+    new winston.transports.Console({
+      format: format.combine(
+        format.timestamp(),
+        format.json()
+      )
+    })
+  ]
+});
 
 module.exports = {
   logger
