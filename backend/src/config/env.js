@@ -11,14 +11,14 @@ const env = cleanEnv(process.env, {
   MONGODB_URI: url({ default: "mongodb://localhost:27017/verirag", desc: "MongoDB Connection String" }),
   
   CHROMA_URL: url({ default: "http://localhost:8000" }),
-  CHROMA_COLLECTION: str({ default: "rag_firewall_docs" }),
+  CHROMA_COLLECTION: str({ default: "rag_firewall_docs_gemini_cosine" }),
   
-  OPENAI_API_KEY: str({ desc: "OpenAI API Key for Embeddings and LLM" }),
+  GEMINI_API_KEY: str({ desc: "Google Gemini API Key for Embeddings and LLM" }),
   
   SLACK_BOT_TOKEN: str({ default: "", desc: "Optional Slack integration token" }),
   SLACK_SIGNING_SECRET: str({ default: "", desc: "Optional Slack signing secret" }),
   
-  EMBEDDING_MODEL: str({ default: "text-embedding-3-small" }),
+  EMBEDDING_MODEL: str({ default: "gemini-embedding-2" }),
   MAX_CHUNK_SIZE: num({ default: 900 }),
   CHUNK_OVERLAP: num({ default: 150 }),
   
@@ -36,7 +36,7 @@ module.exports = {
   mongodbUri: env.MONGODB_URI,
   chromaUrl: env.CHROMA_URL,
   chromaCollection: env.CHROMA_COLLECTION,
-  openAiApiKey: env.OPENAI_API_KEY,
+  geminiApiKey: env.GEMINI_API_KEY,
   slackBotToken: env.SLACK_BOT_TOKEN,
   slackSigningSecret: env.SLACK_SIGNING_SECRET,
   embeddingModel: env.EMBEDDING_MODEL,
