@@ -1,9 +1,9 @@
-const { ChatOpenAI } = require("@langchain/openai");
+const { ChatGoogleGenerativeAI } = require("@langchain/google-genai");
 const env = require("../../config/env");
 
-const llm = new ChatOpenAI({
-  apiKey: env.openAiApiKey,
-  model: "gpt-4o-mini",
+const llm = new ChatGoogleGenerativeAI({
+  apiKey: env.geminiApiKey,
+  modelName: "gemini-2.5-flash",
   temperature: 0.1
 });
 
