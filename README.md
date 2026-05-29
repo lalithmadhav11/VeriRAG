@@ -29,7 +29,7 @@ Built with scalability in mind, the architecture decouples synchronous API reque
 
 | Domain | Technologies |
 | :--- | :--- |
-| **Core AI Orchestration** | LangGraph, LangChain, OpenAI (GPT-4o) |
+| **Core AI Orchestration** | LangGraph, LangChain, Google Gemini (LangChain, gemini-1.5-flash, text-embedding-004) |
 | **Backend API** | Node.js, Express, Zod |
 | **Queue & Cache** | BullMQ, Redis |
 | **Vector Database** | ChromaDB, text-embedding-3-small |

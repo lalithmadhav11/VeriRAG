@@ -15,9 +15,19 @@ Before deploying the application code, you need to provision the external state.
 1. Create a free database on [Redis Enterprise Cloud](https://redis.com/try-free/) or Upstash.
 2. Get the public endpoint and password.
 
-### ChromaDB (Vector Store)
-For a simple portfolio deployment, ChromaDB can be deployed as a Docker container on Render or Railway.
-- **Render Web Service**: Deploy a Docker service using `chromadb/chroma:latest`. Expose port `8000`. Use a persistent disk mapped to `/chroma/chroma`.
+### ChromaDB (Vector Store) via Railway
+We utilize Railway's native Docker deployment to host ChromaDB. A custom Dockerfile is *not* required.
+
+1. Log in to [Railway](https://railway.app/).
+2. Click **New Project** -> **Deploy from Docker image**.
+3. Enter `chromadb/chroma:latest` as the image name.
+4. Once the service appears, click it, go to the **Variables** tab, and add:
+   - `PORT` = `8000` (Crucial: Overrides Railway's dynamic routing to hit the container's internal 8000 port).
+   - `IS_PERSISTENT` = `TRUE` (Enables data persistence).
+5. To persist your data: Right-click on the project canvas (or press `Ctrl+K`) and select **New Volume**.
+6. Select your ChromaDB service to attach it, and set the **Mount Path** exactly to `/chroma/chroma`.
+7. Go to the **Networking** tab, find the **Public Networking** section, and click **Generate Domain**.
+8. Wait for deployment to finish. Your Vector DB URL will look like `https://chroma-production-xxxx.up.railway.app`.
 
 ---
 
@@ -29,7 +39,8 @@ The backend is configured via Infrastructure-as-Code in `render.yaml`. It combin
 2. Go to **Blueprints** -> **New Blueprint Instance**.
 3. Select the repository. Render will automatically read `backend/render.yaml`.
 4. In the Render Dashboard, fill in the required Environment Variables:
-   - `OPENAI_API_KEY`: Your OpenAI API key.
+   - `GEMINI_API_KEY`: Your Google Gemini API Key from AI Studio.
+   - `EMBEDDING_MODEL`: `text-embedding-004`
    - `MONGODB_URI`: The MongoDB Atlas connection string.
    - `REDIS_HOST`: e.g., `redis-12345.c12.us-east-1-4.ec2.cloud.redislabs.com`
    - `REDIS_PORT`: e.g., `12345`
