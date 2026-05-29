@@ -15,9 +15,6 @@ const env = cleanEnv(process.env, {
   
   GEMINI_API_KEY: str({ desc: "Google Gemini API Key for Embeddings and LLM" }),
   
-  SLACK_BOT_TOKEN: str({ default: "", desc: "Optional Slack integration token" }),
-  SLACK_SIGNING_SECRET: str({ default: "", desc: "Optional Slack signing secret" }),
-  
   EMBEDDING_MODEL: str({ default: "gemini-embedding-2" }),
   MAX_CHUNK_SIZE: num({ default: 900 }),
   CHUNK_OVERLAP: num({ default: 150 }),
@@ -37,8 +34,6 @@ module.exports = {
   chromaUrl: env.CHROMA_URL,
   chromaCollection: env.CHROMA_COLLECTION,
   geminiApiKey: env.GEMINI_API_KEY,
-  slackBotToken: env.SLACK_BOT_TOKEN,
-  slackSigningSecret: env.SLACK_SIGNING_SECRET,
   embeddingModel: env.EMBEDDING_MODEL,
   maxChunkSize: env.MAX_CHUNK_SIZE,
   chunkOverlap: env.CHUNK_OVERLAP,
