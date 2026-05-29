@@ -8,5 +8,6 @@ const connectMongo = async () => {
 };
 
 module.exports = {
-  connectMongo
+  connectMongo,
+  mongoose
 };

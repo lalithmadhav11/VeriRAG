@@ -88,8 +88,11 @@ app.use((error, req, res, next) => {
     return res.status(400).json({ error: "Validation Error", details: error.errors });
   }
 
-  return res.status(500).json({
-    error: process.env.NODE_ENV === "production" ? "Internal server error" : error.message
+  const statusCode = error.status || 500;
+  return res.status(statusCode).json({
+    error: (process.env.NODE_ENV === "production" && statusCode === 500) 
+      ? "Internal server error" 
+      : error.message
   });
 });
 
