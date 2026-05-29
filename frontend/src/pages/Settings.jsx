@@ -88,7 +88,7 @@ export default function Settings() {
             ['Vector Store', 'ChromaDB (text-embedding-3-small)'],
             ['Queue', 'BullMQ + Redis (exponential backoff)'],
             ['Database', 'MongoDB (QueryHistory + Document)'],
-            ['Slack', 'Slack Bolt (optional, threaded replies)'],
+
           ].map(([k, v]) => (
             <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '14px 0', borderBottom: '1px solid var(--outline-variant)', alignItems: 'center' }}>
               <span style={{ fontSize: 15, fontWeight: 500, color: 'var(--on-surface)' }}>{k}</span>
