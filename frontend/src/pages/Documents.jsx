@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { ingestPdf } from '../api'
 
 function IngestionStep({ label, status }) {
@@ -69,7 +69,18 @@ export default function Documents() {
   const [uploadError, setUploadError] = useState('')
   const [sourceName, setSourceName] = useState('')
   const [dragging, setDragging] = useState(false)
-  const [recentDocs, setRecentDocs] = useState([])
+  const [recentDocs, setRecentDocs] = useState(() => {
+    try {
+      const saved = sessionStorage.getItem('verirag_recentDocs');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    sessionStorage.setItem('verirag_recentDocs', JSON.stringify(recentDocs));
+  }, [recentDocs]);
   const fileInput = useRef(null)
 
   const handleFile = async (file) => {
@@ -174,7 +185,7 @@ export default function Documents() {
               </div>
               <IngestionStep label="PDF Extraction" status={uploadState === 'idle' ? 'pending' : 'done'} />
               <IngestionStep label="Recursive Chunking" status={uploadState === 'uploading' ? 'active' : uploadState === 'idle' ? 'pending' : 'done'} />
-              <IngestionStep label="OpenAI Embeddings" status={uploadState === 'uploading' ? 'pending' : uploadState === 'done' ? 'done' : 'pending'} />
+              <IngestionStep label="Gemini Embeddings" status={uploadState === 'uploading' ? 'pending' : uploadState === 'done' ? 'done' : 'pending'} />
               <IngestionStep label="ChromaDB Indexing" status={uploadState === 'done' ? 'done' : 'pending'} />
               {uploadError && (
                 <div style={{ marginTop: 16, padding: 12, borderRadius: '4px', background: 'var(--error-container)', borderLeft: '4px solid var(--error)', color: 'var(--error)', fontSize: 14 }}>
