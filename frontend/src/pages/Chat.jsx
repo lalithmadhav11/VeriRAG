@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useRef } from 'react'
 import { submitAsyncQuery, getQueryStatus } from '../api'
 import { useToast } from '../components/ToastProvider'
 
@@ -197,10 +198,11 @@ export default function Chat() {
   useEffect(() => () => clearInterval(pollRef.current), [])
 
   const handleSend = async (retryQuery = null) => {
-    const q = retryQuery || input.trim()
-    if (!q || isSubmitting) return
+    const isRetryStr = typeof retryQuery === 'string';
+    const q = isRetryStr ? retryQuery : input.trim();
+    if (!q || isSubmitting) return;
 
-    if (!retryQuery) setInput('')
+    if (!isRetryStr) setInput('');
     setIsSubmitting(true)
     setAgentStatus('running')
 
@@ -367,7 +369,7 @@ export default function Chat() {
               {isSubmitting ? 'Agent is processing...' : 'Async via BullMQ · LangGraph'}
             </span>
             <button
-              onClick={handleSend}
+              onClick={() => handleSend()}
               disabled={!input.trim() || isSubmitting}
               className="btn btn-primary"
               style={{ padding: '8px 20px', opacity: (!input.trim() || isSubmitting) ? 0.5 : 1, cursor: (!input.trim() || isSubmitting) ? 'not-allowed' : 'pointer' }}
