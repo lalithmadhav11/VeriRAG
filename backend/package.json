@@ -16,7 +16,6 @@
     "@langchain/core": "^0.3.34",
     "@langchain/google-genai": "^0.1.0",
     "@langchain/langgraph": "^0.2.39",
-    "@slack/bolt": "^4.7.2",
     "bullmq": "^5.32.1",
     "chromadb": "^1.10.0",
     "compression": "^1.8.1",
