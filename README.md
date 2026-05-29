@@ -20,7 +20,7 @@ Built with scalability in mind, the architecture decouples synchronous API reque
 - **Mathematical Hallucination Scoring**: Computes a deterministic confidence score based on maximum and average cosine similarity between the generated response and source contexts.
 - **Asynchronous Execution (BullMQ)**: Prevents HTTP timeout exhaustion by offloading heavy LLM inference chains to a Redis-backed queue.
 - **Enterprise Observability**: Winston JSON structured logging, execution duration telemetry, correlation IDs, and robust graceful shutdown sequences.
-- **Slack Integration**: Asynchronous webhook listeners allow non-technical stakeholders to query the RAG pipeline directly from Slack.
+
 - **Warm Minimalism Frontend**: A premium, "Parchment & Ink" React dashboard for real-time trace visualization and PDF ingestion.
 
 ---
@@ -47,7 +47,6 @@ VeriRAG utilizes an event-driven, decoupled microservices pattern to ensure high
 graph TD
     %% Entities
     User[User / React Frontend]
-    Slack[Slack API]
     API[Express API Gateway]
     Queue[(Redis / BullMQ)]
     Worker[Agent Worker Process]
@@ -57,7 +56,6 @@ graph TD
 
     %% Flow
     User -->|POST /query/async| API
-    Slack -->|Event: app_mention| API
     API -->|Enqueue Job| Queue
     API -->|Return JobID| User
     
@@ -183,18 +181,7 @@ stateDiagram-v2
 
 ---
 
-## 10. Slack Integration Flow
 
-VeriRAG extends beyond a web UI into daily organizational workflows via Slack Bolt. 
-
-1. User mentions `@VeriRAG What is our Q3 strategy?`
-2. Slack fires an `app_mention` webhook to the Express API.
-3. Express acknowledges Slack immediately (preventing a 3-second timeout).
-4. Express enqueues the job into BullMQ.
-5. The Worker processes the LangGraph pipeline.
-6. The Worker uses the Slack API to asynchronously post the final generated answer back to the original Slack thread.
-
----
 
 ## 11. Frontend Architecture
 
@@ -234,7 +221,7 @@ VeriRAG/
 │   │   ├── middleware/   # Request correlation, Error Handlers
 │   │   ├── models/       # Mongoose schemas
 │   │   ├── queue/        # BullMQ Worker, Producer, Redis Connection
-│   │   ├── slack/        # Slack Bolt events and auth
+
 │   │   ├── utils/        # Winston Logger, AsyncHandlers
 │   │   └── server.js     # Entry point, Graceful Shutdown
 │   ├── Dockerfile
@@ -316,8 +303,6 @@ MONGO_URI=mongodb://localhost:27017/verirag
 REDIS_HOST=127.0.0.1
 REDIS_PORT=6379
 CHROMA_URL=http://localhost:8000
-SLACK_BOT_TOKEN=xoxb-...
-SLACK_SIGNING_SECRET=...
 LOG_LEVEL=info
 ```
 
