@@ -9,8 +9,6 @@ const { getOrCreateCollection } = require("./config/chroma");
 const { createWorker } = require("./queue/worker");
 const { redisConnection } = require("./queue/connection");
 const apiRouter = require("./api");
-const { App, ExpressReceiver } = require("@slack/bolt");
-const { registerSlackEvents } = require("./slack/events");
 const { requestContext } = require("./middleware/requestContext.middleware");
 const { logger } = require("./utils/logger");
 
@@ -48,28 +46,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Important: mount Slack receiver BEFORE express.json(), otherwise Slack signature
-// verification may fail due to the request body being pre-parsed.
-if (env.slackBotToken && env.slackSigningSecret) {
-  const receiver = new ExpressReceiver({
-    signingSecret: env.slackSigningSecret,
-    endpoints: "/slack/events"
-  });
 
-  const slackApp = new App({
-    token: env.slackBotToken,
-    receiver
-  });
-
-  registerSlackEvents(slackApp);
-
-  // Mount Slack Bolt receiver into our Express server.
-  app.use(slackApp.receiver.router);
-
-  logger.info("Slack receiver mounted", { endpoint: "/slack/events" });
-} else {
-  logger.info("Slack integration disabled");
-}
 
 app.use(express.json({ limit: "5mb" }));
 
