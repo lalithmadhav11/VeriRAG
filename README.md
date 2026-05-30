@@ -333,3 +333,20 @@ LOG_LEVEL=info
 - **Advanced Graph Memory**: Integrate LangGraph's `checkpointer` (via Redis) to enable multi-turn conversational memory spanning across days.
 
 ---
+
+## 20. Hallucination Validation Benchmark
+
+VeriRAG includes a purpose-built evaluation framework to test the efficacy of the mathematical hallucination scorer.
+
+- **Dataset Size**: 50 handcrafted enterprise AI infrastructure examples (25 grounded, 25 hallucinated).
+- **Methodology**: Contexts are semantically chunked. The pipeline calculates the max and average cosine similarity between the answer embedding and the context chunk embeddings using `gemini-embedding-2`. The weighted formula `(maxSim * 0.7) + (avgSim * 0.3)` is applied with a `0.75` classification threshold.
+
+### Performance Metrics
+- **Accuracy**: 62%
+- **Precision**: 88%
+- **Recall**: 28%
+- **F1 Score**: 42%
+
+*Note: The high precision indicates the firewall rarely blocks valid answers (low false-positive rate), but the low recall suggests that thematic hallucinations (similar vocabulary but incorrect facts) can still bypass pure cosine similarity checks.*
+
+---
