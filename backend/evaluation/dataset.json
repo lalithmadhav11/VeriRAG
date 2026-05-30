@@ -1,0 +1,352 @@
+[
+  {
+    "id": 1,
+    "question": "What is Redis?",
+    "context": "Redis is an in-memory key-value data store commonly used for caching and message queues.",
+    "answer": "Redis is an in-memory key-value data store commonly used for caching and message queues.",
+    "expected": "grounded"
+  },
+  {
+    "id": 2,
+    "question": "What is Redis?",
+    "context": "Redis is an in-memory key-value data store commonly used for caching and message queues.",
+    "answer": "Redis is a relational SQL database.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 3,
+    "question": "What is BullMQ used for?",
+    "context": "BullMQ is a Redis-backed job queue for Node.js applications.",
+    "answer": "BullMQ uses Redis to manage background jobs.",
+    "expected": "grounded"
+  },
+  {
+    "id": 4,
+    "question": "What is BullMQ used for?",
+    "context": "BullMQ is a Redis-backed job queue for Node.js applications.",
+    "answer": "BullMQ is a MongoDB ORM library.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 5,
+    "question": "What does ChromaDB store?",
+    "context": "ChromaDB stores vector embeddings for similarity search.",
+    "answer": "ChromaDB stores embeddings used for semantic retrieval.",
+    "expected": "grounded"
+  },
+  {
+    "id": 6,
+    "question": "What does ChromaDB store?",
+    "context": "ChromaDB stores vector embeddings for similarity search.",
+    "answer": "ChromaDB stores blockchain transactions.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 7,
+    "question": "What is LangGraph?",
+    "context": "LangGraph enables stateful agent workflows using graph-based execution.",
+    "answer": "LangGraph provides graph-based orchestration for AI agents.",
+    "expected": "grounded"
+  },
+  {
+    "id": 8,
+    "question": "What is LangGraph?",
+    "context": "LangGraph is a frontend CSS framework.",
+    "answer": "LangGraph is used for responsive web design.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 9,
+    "question": "What is RAG?",
+    "context": "Retrieval-Augmented Generation combines retrieval and generation to answer questions using external knowledge.",
+    "answer": "RAG augments LLM responses using retrieved context.",
+    "expected": "grounded"
+  },
+  {
+    "id": 10,
+    "question": "What is RAG?",
+    "context": "Retrieval-Augmented Generation combines retrieval and generation to answer questions using external knowledge.",
+    "answer": "RAG is a GPU optimization technique.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 11,
+    "question": "How does semantic search work?",
+    "context": "Semantic search maps texts to dense vector embeddings and retrieves similar documents using cosine distance.",
+    "answer": "It finds similar documents by comparing dense vector embeddings.",
+    "expected": "grounded"
+  },
+  {
+    "id": 12,
+    "question": "How does semantic search work?",
+    "context": "Semantic search maps texts to dense vector embeddings and retrieves similar documents using cosine distance.",
+    "answer": "It exclusively uses exact keyword matching via regular expressions.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 13,
+    "question": "What is MongoDB?",
+    "context": "MongoDB is a NoSQL document database that stores data in JSON-like BSON formats.",
+    "answer": "MongoDB is a NoSQL database that utilizes BSON documents.",
+    "expected": "grounded"
+  },
+  {
+    "id": 14,
+    "question": "What is MongoDB?",
+    "context": "MongoDB is a NoSQL document database that stores data in JSON-like BSON formats.",
+    "answer": "MongoDB is a strictly relational database requiring rigid schemas.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 15,
+    "question": "Why use exponential backoff in queues?",
+    "context": "Exponential backoff gradually increases wait times between retries to prevent overwhelming failing services.",
+    "answer": "It helps avoid overwhelming failing services by increasing wait time between retries.",
+    "expected": "grounded"
+  },
+  {
+    "id": 16,
+    "question": "Why use exponential backoff in queues?",
+    "context": "Exponential backoff gradually increases wait times between retries to prevent overwhelming failing services.",
+    "answer": "It decreases wait time so retries happen faster when a service fails.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 17,
+    "question": "What is an embedding?",
+    "context": "An embedding is a numerical representation of text that captures its semantic meaning in high-dimensional space.",
+    "answer": "An embedding translates text into numerical vectors that capture meaning.",
+    "expected": "grounded"
+  },
+  {
+    "id": 18,
+    "question": "What is an embedding?",
+    "context": "An embedding is a numerical representation of text that captures its semantic meaning in high-dimensional space.",
+    "answer": "An embedding is a hardware component used for accelerating rendering.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 19,
+    "question": "How does chunking help in RAG?",
+    "context": "Chunking splits large documents into smaller pieces to ensure they fit into LLM context windows and improve retrieval accuracy.",
+    "answer": "It splits text to fit into LLM context limits and boosts retrieval.",
+    "expected": "grounded"
+  },
+  {
+    "id": 20,
+    "question": "How does chunking help in RAG?",
+    "context": "Chunking splits large documents into smaller pieces to ensure they fit into LLM context windows and improve retrieval accuracy.",
+    "answer": "Chunking compresses the text into a zip format to save database space.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 21,
+    "question": "What is cosine similarity?",
+    "context": "Cosine similarity measures the angle between two vectors, returning 1 for identical vectors and 0 for orthogonal ones.",
+    "answer": "It measures the angle between vectors to determine similarity.",
+    "expected": "grounded"
+  },
+  {
+    "id": 22,
+    "question": "What is cosine similarity?",
+    "context": "Cosine similarity measures the angle between two vectors, returning 1 for identical vectors and 0 for orthogonal ones.",
+    "answer": "Cosine similarity calculates the absolute difference in byte sizes between files.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 23,
+    "question": "What is a vector store?",
+    "context": "A vector store is a specialized database designed to efficiently store and query high-dimensional embeddings.",
+    "answer": "It is a database optimized for querying high-dimensional embeddings.",
+    "expected": "grounded"
+  },
+  {
+    "id": 24,
+    "question": "What is a vector store?",
+    "context": "A vector store is a specialized database designed to efficiently store and query high-dimensional embeddings.",
+    "answer": "A vector store is a cloud storage bucket specifically for graphic design SVGs.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 25,
+    "question": "What is the purpose of LangChain?",
+    "context": "LangChain is a framework for developing applications powered by language models by providing abstractions for prompts, models, and chains.",
+    "answer": "It is a framework that provides abstractions to build applications with language models.",
+    "expected": "grounded"
+  },
+  {
+    "id": 26,
+    "question": "What is the purpose of LangChain?",
+    "context": "LangChain is a framework for developing applications powered by language models by providing abstractions for prompts, models, and chains.",
+    "answer": "LangChain is a cryptocurrency built on top of Ethereum.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 27,
+    "question": "What is a prompt injection?",
+    "context": "Prompt injection is a vulnerability where malicious user input overrides the original instructions of an LLM.",
+    "answer": "It is a vulnerability where an attacker uses input to alter the LLM's original instructions.",
+    "expected": "grounded"
+  },
+  {
+    "id": 28,
+    "question": "What is a prompt injection?",
+    "context": "Prompt injection is a vulnerability where malicious user input overrides the original instructions of an LLM.",
+    "answer": "Prompt injection is a SQL optimization technique for faster queries.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 29,
+    "question": "What is temperature in an LLM?",
+    "context": "Temperature controls the randomness of an LLM's output. A higher temperature makes the output more creative, while a lower one makes it deterministic.",
+    "answer": "Temperature determines output randomness, with lower values being more deterministic.",
+    "expected": "grounded"
+  },
+  {
+    "id": 30,
+    "question": "What is temperature in an LLM?",
+    "context": "Temperature controls the randomness of an LLM's output. A higher temperature makes the output more creative, while a lower one makes it deterministic.",
+    "answer": "Temperature determines the physical operating heat of the GPUs running the model.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 31,
+    "question": "Why use asynchronous queues for AI tasks?",
+    "context": "AI generation can take many seconds. Queues prevent HTTP timeouts and allow the backend to process heavy tasks in the background.",
+    "answer": "Queues process heavy tasks in the background to avoid HTTP connection timeouts.",
+    "expected": "grounded"
+  },
+  {
+    "id": 32,
+    "question": "Why use asynchronous queues for AI tasks?",
+    "context": "AI generation can take many seconds. Queues prevent HTTP timeouts and allow the backend to process heavy tasks in the background.",
+    "answer": "Queues instantly increase the inference speed of the LLM by ten times.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 33,
+    "question": "What is a context window?",
+    "context": "A context window is the maximum number of tokens an LLM can process in a single request, including both prompt and response.",
+    "answer": "It is the maximum token limit an LLM can handle per request.",
+    "expected": "grounded"
+  },
+  {
+    "id": 34,
+    "question": "What is a context window?",
+    "context": "A context window is the maximum number of tokens an LLM can process in a single request, including both prompt and response.",
+    "answer": "A context window is a pop-up UI element in the React dashboard.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 35,
+    "question": "How does Gemini 1.5 handle large contexts?",
+    "context": "Gemini 1.5 Pro features a massive 1 to 2 million token context window, allowing it to ingest entire books or codebases.",
+    "answer": "It can process 1 to 2 million tokens, enabling it to read entire codebases.",
+    "expected": "grounded"
+  },
+  {
+    "id": 36,
+    "question": "How does Gemini 1.5 handle large contexts?",
+    "context": "Gemini 1.5 Pro features a massive 1 to 2 million token context window, allowing it to ingest entire books or codebases.",
+    "answer": "Gemini 1.5 splits documents into 500-token chunks because of its strict memory limitations.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 37,
+    "question": "What does an API gateway do?",
+    "context": "An API gateway acts as a reverse proxy to route requests, manage rate limiting, and handle authentication.",
+    "answer": "It routes requests and handles cross-cutting concerns like rate limiting.",
+    "expected": "grounded"
+  },
+  {
+    "id": 38,
+    "question": "What does an API gateway do?",
+    "context": "An API gateway acts as a reverse proxy to route requests, manage rate limiting, and handle authentication.",
+    "answer": "An API gateway physically connects network switches in a data center.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 39,
+    "question": "What is structured logging?",
+    "context": "Structured logging outputs logs in JSON format rather than plain text, making it easier for monitoring tools like Datadog to parse and query.",
+    "answer": "It outputs logs as JSON so monitoring tools can easily query them.",
+    "expected": "grounded"
+  },
+  {
+    "id": 40,
+    "question": "What is structured logging?",
+    "context": "Structured logging outputs logs in JSON format rather than plain text, making it easier for monitoring tools like Datadog to parse and query.",
+    "answer": "Structured logging prevents unauthorized users from reading log files.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 41,
+    "question": "What is the purpose of rate limiting?",
+    "context": "Rate limiting restricts the number of requests a user can make in a given timeframe to prevent DDoS attacks and API abuse.",
+    "answer": "It prevents API abuse and DDoS attacks by restricting request frequency.",
+    "expected": "grounded"
+  },
+  {
+    "id": 42,
+    "question": "What is the purpose of rate limiting?",
+    "context": "Rate limiting restricts the number of requests a user can make in a given timeframe to prevent DDoS attacks and API abuse.",
+    "answer": "Rate limiting ensures the application renders at 60 frames per second.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 43,
+    "question": "What is Zod used for?",
+    "context": "Zod is a TypeScript-first schema declaration and validation library used to ensure data matches expected shapes.",
+    "answer": "Zod is used for schema declaration and runtime data validation.",
+    "expected": "grounded"
+  },
+  {
+    "id": 44,
+    "question": "What is Zod used for?",
+    "context": "Zod is a TypeScript-first schema declaration and validation library used to ensure data matches expected shapes.",
+    "answer": "Zod is a vector database optimization algorithm.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 45,
+    "question": "What is chunk overlap in RAG?",
+    "context": "Chunk overlap ensures that text chunk boundaries don't break semantic meaning by keeping a small percentage of the previous chunk in the next one.",
+    "answer": "It preserves semantic meaning across boundaries by sharing text between chunks.",
+    "expected": "grounded"
+  },
+  {
+    "id": 46,
+    "question": "What is chunk overlap in RAG?",
+    "context": "Chunk overlap ensures that text chunk boundaries don't break semantic meaning by keeping a small percentage of the previous chunk in the next one.",
+    "answer": "Chunk overlap ensures that ChromaDB compresses the data twice.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 47,
+    "question": "Why is gracefully shutting down important?",
+    "context": "A graceful shutdown stops accepting new requests but waits for active requests to finish, preventing data loss or interrupted API calls.",
+    "answer": "It prevents data loss by letting active requests finish before stopping the server.",
+    "expected": "grounded"
+  },
+  {
+    "id": 48,
+    "question": "Why is gracefully shutting down important?",
+    "context": "A graceful shutdown stops accepting new requests but waits for active requests to finish, preventing data loss or interrupted API calls.",
+    "answer": "It allows the server to forcefully kill all connections to save battery life.",
+    "expected": "hallucinated"
+  },
+  {
+    "id": 49,
+    "question": "What is the role of an orchestrator in AI?",
+    "context": "An orchestrator like LangGraph manages the state, memory, and routing between various AI nodes and tools.",
+    "answer": "It manages routing, state, and memory between different AI tools.",
+    "expected": "grounded"
+  },
+  {
+    "id": 50,
+    "question": "What is the role of an orchestrator in AI?",
+    "context": "An orchestrator like LangGraph manages the state, memory, and routing between various AI nodes and tools.",
+    "answer": "An orchestrator strictly compiles JavaScript code into native machine code.",
+    "expected": "hallucinated"
+  }
+]
